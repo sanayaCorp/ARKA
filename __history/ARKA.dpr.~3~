@@ -1,0 +1,97 @@
+program ARKA;
+
+uses
+  Forms,
+  uni,
+  UniProvider,
+  MySQLUniProvider,
+  DB,
+  DBAccess,
+  uMain in 'uMain.pas' {uMainForm};
+
+{$R *.res}
+var
+   koneksi:TUniConnection;
+   query:TUniQuery;
+
+function CreateKoneksi:boolean;
+begin
+  koneksi := TUniConnection.Create(nil);
+  try
+    with Koneksi do
+    begin
+      ProviderName := 'MySQL';
+      database:= 'mysql';
+      SpecificOptions.Values['Embedded'] := 'True';
+      SpecificOptions.Values['EmbeddedParams'] := '--basedir=./embedded'#13#10'--datadir=/data';
+      result:= true;
+    end;
+  except
+    result:= false;
+  end;
+end;
+
+procedure createMysql;
+var
+   i: integer;
+   sqlText: String;
+begin
+  i:= 1;
+  if createKoneksi = true then
+  begin
+    Query := TUniQuery.Create(nil);
+    Try
+      with Query do
+      begin
+        Query.Connection := koneksi;
+        repeat
+          Close;
+          Sql.Clear;
+          case i of
+            1 : begin
+                sqltext := 'create database if not exists `BitPost`';
+                end;
+            2 : begin
+                sqltext := 'use BitPost';
+                end;
+            {------------------------------------------------------------------
+             Create Table
+             ------------------------------------------------------------------}
+            3 : begin
+                SqlText:= 'Create Table IF Not Exists `masjns` (`kode` varchar(3), `Jenis` varchar(30), PRIMARY KEY (`Kode`));';
+                end;
+            4 : begin
+                SqlText:= 'Create Table IF Not Exists `massat` (`kode` varchar(3), `Satuan` varchar(30), PRIMARY KEY (`Kode`));';
+                end;
+            5 : begin
+                SqlText:= 'Create Table IF Not Exists `masbrg` (`Kode` varchar(30), `Barang` varchar(30), `Satuan` varchar(3), `jenis` varchar(3), `HrgBeli` decimal(28,8), `HrgBeliPpn` decimal(28,8), `HrgJual` decimal(28,8), `Barcode` varchar(30), PRIMARY KEY (`Kode`));'
+                end;
+            {------------------------------------------------------------------
+             Create View
+             ------------------------------------------------------------------}
+            6 : begin
+                  SqlText := 'Create OR Replace view `vbarang`'+
+                             'AS Select `b`.`Kode`, `b`.`Barang`, `s`.`Satuan`, `j`.`Jenis`, `b`.`Barcode` '+
+                             ' From `masbrg` as b inner join `massat` as s on (`b`.`satuan` = `s`.`kode`)'+
+                             ' inner join `masjns` as j on (`b`.`jenis` = `j`.`kode`) Order by `b`.`Kode`, `b`.`Barang` asc';
+                end;
+          end;
+          sql.Add(sqltext);
+          ExecSQL;
+          inc(i);
+        until i = 7;
+      end;
+    except
+
+    End;
+  end;
+  koneksi.Free;
+  Query.Free;
+end;
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TuMainForm, uMainForm);
+  Application.Run;
+end.

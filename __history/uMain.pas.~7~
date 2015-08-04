@@ -1,0 +1,72 @@
+unit uMain;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  dxSkinsCore, dxSkinOffice2010Blue, dxSkinSeven, dxSkinSharp, dxSkinSilver,
+  dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008, dxSkinValentine,
+  dxSkinXmas2008Blue, dxSkinsdxBarPainter, dxBar, dxRibbon, dxStatusBar,
+  dxRibbonStatusBar, cxClasses, dxSkinsdxDockControlPainter, dxDockControl,
+  dxDockPanel, dxSkinsForm, ShellAPI, ActnList;
+
+type
+  TuMainForm = class(TForm)
+    dxRibbon1Tab1: TdxRibbonTab;
+    dxRibbon1: TdxRibbon;
+    dxRibbonStatusBar1: TdxRibbonStatusBar;
+    dxBarManager1: TdxBarManager;
+    dxBarApplicationMenu1: TdxBarApplicationMenu;
+    dxRibbon1Tab2: TdxRibbonTab;
+    dxRibbon1Tab3: TdxRibbonTab;
+    dxRibbon1Tab4: TdxRibbonTab;
+    dxDockPanel1: TdxDockPanel;
+    dxDockingManager1: TdxDockingManager;
+    dxDockSite1: TdxDockSite;
+    dxLayoutDockSite1: TdxLayoutDockSite;
+    dxSkinController1: TdxSkinController;
+    ActionList1: TActionList;
+    Monitoring: TAction;
+    procedure FormCreate(Sender: TObject);
+    procedure MonitoringExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  uMainForm: TuMainForm;
+
+implementation
+
+{$R *.dfm}
+
+function IsMDIChildOpen(const AFormName: TForm; const AMDIChildName : string): Boolean;
+var
+  i: Integer;
+begin
+  Result := False;
+  for i := Pred(AFormName.MDIChildCount) DownTo 0 do
+    if (AFormName.MDIChildren[i].Name = AMDIChildName) then
+    begin
+      Result := True;
+      Break;
+    end;
+end;
+
+procedure TuMainForm.FormCreate(Sender: TObject);
+begin
+  dxSkinController1.UseSkins := true;
+  dxribbon1.ColorSchemeName:='Office2010Blue';
+
+end;
+
+procedure TuMainForm.MonitoringExecute(Sender: TObject);
+begin
+  ShellExecute(0, 'open', 'dbmonitor.exe', nil, nil,
+                SW_SHOW)
+end;
+
+end.
