@@ -13,7 +13,7 @@ uses
   cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, DB, cxDBData,
   UniProvider, MySQLUniProvider, cxGridLevel, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, DBAccess,
-  Uni, ImgList, DASQLMonitor, UniSQLMonitor, cxContainer, cxLabel;
+  Uni, ImgList, DASQLMonitor, UniSQLMonitor, cxContainer, cxLabel, IniFiles;
 
 type
   TuMainForm = class(TForm)
@@ -32,7 +32,7 @@ type
     dxSkinController1: TdxSkinController;
     ActionList1: TActionList;
     Monitoring: TAction;
-    conARKA: TUniConnection;
+    conARKAClientServer: TUniConnection;
     cxGrid1DBTableView1: TcxGridDBTableView;
     cxGrid1Level1: TcxGridLevel;
     cxGrid1: TcxGrid;
@@ -70,6 +70,7 @@ type
     Backup_Restore: TAction;
     dxBarLargeButton13: TdxBarLargeButton;
     cxLabel1: TcxLabel;
+    UniConnection1: TUniConnection;
     procedure FormCreate(Sender: TObject);
     procedure MonitoringExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -77,15 +78,43 @@ type
   private
     { Private declarations }
   public
+  var Status:smallint;
     { Public declarations }
   end;
 
 var
   uMainForm: TuMainForm;
-
+  file_:string;
+  provider_, database_, server_, user_, password_:String;
+  port_:integer;
 implementation
 
 {$R *.dfm}
+
+function bacaFiles:boolean;
+var
+  sett : TIniFile;
+begin
+  file_:= ExtractFilePath(Application.ExeName)+'setting.ini';
+  if FileExists(file_) then
+  begin
+    sett := TIniFile.Create(ExtractFilePath(Application.ExeName)+'setting.ini');
+    server_  := sett.ReadString('Database','Hostname','');
+    user_    := sett.ReadString('Database','User','');
+    password_:= sett.ReadString('Database','Password','');
+    database_:= sett.ReadString('Database','Database','');
+    port_    := strtoint(sett.ReadString('Database','Port',''));
+    provider_:= sett.ReadString('Database','Provider','');
+    sett.Free;
+  end;
+  if server_ = '' then
+  begin
+    result := true; // koneksi dengan embedded;
+  end else
+  begin
+    result := false; // koneksi dengan clien server
+  end;
+end;
 
 function IsMDIChildOpen(const AFormName: TForm; const AMDIChildName : string): Boolean;
 var
@@ -117,6 +146,33 @@ procedure TuMainForm.FormCreate(Sender: TObject);
 begin
   dxSkinController1.UseSkins := true;
   dxribbon1.ColorSchemeName:='Office2010Blue';
+  if bacaFiles = true then // Jika connection embedded
+  begin
+    //------------------------------------
+    with uniconnection1 do
+    begin
+      ProviderName := provider_;
+      database_:= Database;
+      SpecificOptions.Values['Embedded'] := 'True';
+      SpecificOptions.Values['EmbeddedParams'] := '--basedir=./embedded'#13#10'--datadir=/data';
+      connect;
+    end;
+    Status := 0;
+  end else
+  begin
+    // Jika connection client Server
+    with conARKAClientServer do
+    begin
+      ProviderName := provider_;
+      database:= Database_;
+      Server := server_;
+      Username := user_;
+      Password := password_;
+      Port  := Port_;
+      conARKAClientServer.Connect;
+    end;
+    Status := 1;
+  end;
 end;
 
 procedure TuMainForm.MonitoringExecute(Sender: TObject);

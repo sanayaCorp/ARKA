@@ -8,6 +8,8 @@ uses
   DB,
   DBAccess,
   inifiles,
+  ShellAPI,
+  SysUtils,
   uMain in 'uMain.pas' {uMainForm},
   uSettingConnection in 'uSettingConnection.pas' {SettingConnectionForm};
 
@@ -15,6 +17,9 @@ uses
 var
    koneksi:TUniConnection;
    query:TUniQuery;
+   file_:string;
+   provider, database, server, user, password:String;
+   port:integer;
 
 function CreateKoneksi:boolean;
 begin
@@ -22,7 +27,7 @@ begin
   try
     with Koneksi do
     begin
-      ProviderName := 'MySQL';
+      ProviderName := provider;
       database:= 'mysql';
       SpecificOptions.Values['Embedded'] := 'True';
       SpecificOptions.Values['EmbeddedParams'] := '--basedir=./embedded'#13#10'--datadir=/data';
@@ -61,7 +66,7 @@ begin
              ------------------------------------------------------------------}
             3 : begin
                 SqlText:= 'Create Table IF Not Exists `masjns` (`kode` varchar(3), `Jenis` varchar(30), '+
-                          ' `added_by` varchar(15), `changed_by` varchar(15), `last_modified` timestamp Default CURRENT_TIMESTAMP , `PRIMARY KEY (`Kode`));'
+                          ' `added_by` varchar(15), `changed_by` varchar(15), `last_modified` timestamp Default CURRENT_TIMESTAMP , PRIMARY KEY (`Kode`));'
                 end;
             4 : begin
                 SqlText:= ' Create Table IF Not Exists `maspem` (`nip` varchar(20), `nama_pemilik` varchar(40), `alamat` varchar(50), `rt` char(3),'+
@@ -77,20 +82,21 @@ begin
                 end;
             6 : begin
                 sqlText:= ' create Table IF Not Exists `maskab` (`kode` varchar(2), `nama_kab` varchar(40), `added_by` varchar(15), `changed_by` varchar(15), `last_modified` timestamp Default CURRENT_TIMESTAMP , '+
-                          ' primary key(`kode`)';
+                          ' primary key(`kode`))';
                 end;
             7 : begin
                 sqlText:= ' create Table IF Not Exists `maskec` (`kode` varchar(4), `nama_kec` varchar(40), `kd_kab` varchar(2), `added_by` varchar(15), `changed_by` varchar(15), `last_modified` timestamp Default CURRENT_TIMESTAMP , '+
-                          ' primary key(`kode`,`kd_kab`)';
+                          ' primary key(`kode`,`kd_kab`))';
                 end;
             8 : begin
-                sqlText:= ' create Table IF Not Exists `maskab` (`kode` varchar(6), `nama_kec` varchar(40), `kd_kec` varchar(4), `added_by` varchar(15), `changed_by` varchar(15), `last_modified` timestamp Default CURRENT_TIMESTAMP , '+
-                          ' primary key(`kode`,`kd_kec`)';
+                sqlText:= ' create Table IF Not Exists `maskel` (`kode` varchar(6), `nama_kec` varchar(40), `kd_kec` varchar(4), `added_by` varchar(15), `changed_by` varchar(15), `last_modified` timestamp Default CURRENT_TIMESTAMP , '+
+                          ' primary key(`kode`,`kd_kec`))';
                 end;
             {------------------------------------------------------------------
              Create View
              ------------------------------------------------------------------}
             9 : begin
+                  sqlText:='';
                   //SqlText := ' Create OR Replace view `vbarang`'+
                   //           ' AS Select `b`.`Kode`, `b`.`Barang`, `s`.`Satuan`, `j`.`Jenis`, `b`.`Barcode` '+
                   //           ' From `masbrg` as b inner join `massat` as s on (`b`.`satuan` = `s`.`kode`)'+
@@ -112,13 +118,54 @@ end;
 
 function cekFiles:boolean;
 begin
+  file_:= ExtractFilePath(Application.ExeName)+'setting.ini';
+  if not FileExists(file_) then
+  begin
+    result:= true;
+  end else
+  begin
+    result:= false;
+  end;
+end;
 
+function bacaFiles:boolean;
+var
+  sett : TIniFile;
+begin
+  file_:= ExtractFilePath(Application.ExeName)+'setting.ini';
+  if FileExists(file_) then
+  begin
+    sett := TIniFile.Create(ExtractFilePath(Application.ExeName)+'setting.ini');
+    server  := sett.ReadString('Database','Hostname','');
+    user    := sett.ReadString('Database','User','');
+    password:= sett.ReadString('Database','Password','');
+    database:= sett.ReadString('Database','Database','');
+    port    := strtoint(sett.ReadString('Database','Port',''));
+    provider:= sett.ReadString('Database','Provider','');
+    sett.Free;
+  end;
+  if server = '' then
+  begin
+    result := true; // koneksi dengan embedded;
+  end else
+  begin
+    result := false; // koneksi dengan clien server
+  end;
 end;
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TSettingConnectionForm, SettingConnectionForm);
-  Application.CreateForm(TuMainForm, uMainForm);
+  if cekFiles then
+  begin
+    Application.CreateForm(TSettingConnectionForm, SettingConnectionForm);
+  end else
+  begin
+    if bacaFiles = true then
+    begin
+      createMysql;
+    end;
+    Application.CreateForm(TuMainForm, uMainForm);
+  end;
   Application.Run;
 end.

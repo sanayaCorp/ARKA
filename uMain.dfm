@@ -158,10 +158,6 @@ object uMainForm: TuMainForm
     Properties.LabelStyle = cxlsRaised
     Properties.WordWrap = True
     Transparent = True
-    ExplicitLeft = 344
-    ExplicitTop = 240
-    ExplicitWidth = 46
-    ExplicitHeight = 17
     Width = 552
     AnchorX = 500
     AnchorY = 311
@@ -468,7 +464,7 @@ object uMainForm: TuMainForm
       ImageIndex = 12
     end
   end
-  object conARKA: TUniConnection
+  object conARKAClientServer: TUniConnection
     DataTypeMap = <>
     ProviderName = 'MySQL'
     Port = 3306
@@ -485,7 +481,7 @@ object uMainForm: TuMainForm
     Top = 136
   end
   object UniTransaction1: TUniTransaction
-    DefaultConnection = conARKA
+    DefaultConnection = conARKAClientServer
     Left = 320
     Top = 184
   end
@@ -2332,5 +2328,15 @@ object uMainForm: TuMainForm
           C07FC003C03FC003C03FC003C03FC003803FC002003FC000003FC000007FC002
           0FFF}
       end>
+  end
+  object UniConnection1: TUniConnection
+    DataTypeMap = <>
+    ProviderName = 'MySQL'
+    SpecificOptions.Strings = (
+      'MySQL.ConnectionTimeout=30'
+      'MySQL.Embedded=True'
+      'MySQL.EmbeddedParams=--basedir=.'#39'#13#10'#39'--datadir=embedded/data')
+    Left = 320
+    Top = 232
   end
 end

@@ -37,7 +37,6 @@ object SettingConnectionForm: TSettingConnectionForm
     StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
     TabOrder = 0
     Transparent = True
-    ExplicitWidth = 316
     Height = 65
     Width = 308
   end
@@ -51,8 +50,6 @@ object SettingConnectionForm: TSettingConnectionForm
     StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
     StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
     TabOrder = 1
-    ExplicitWidth = 316
-    ExplicitHeight = 229
     DesignSize = (
       308
       213)
@@ -60,7 +57,7 @@ object SettingConnectionForm: TSettingConnectionForm
     Width = 308
     object cxButton2: TcxButton
       Left = 149
-      Top = 182
+      Top = 175
       Width = 75
       Height = 24
       Anchors = [akRight, akBottom]
@@ -73,12 +70,11 @@ object SettingConnectionForm: TSettingConnectionForm
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      ExplicitLeft = 157
-      ExplicitTop = 197
+      OnClick = cxButton2Click
     end
     object cxButton1: TcxButton
       Left = 228
-      Top = 182
+      Top = 175
       Width = 75
       Height = 24
       Anchors = [akRight, akBottom]
@@ -92,8 +88,6 @@ object SettingConnectionForm: TSettingConnectionForm
       Font.Style = []
       ParentFont = False
       OnClick = cxButton1Click
-      ExplicitLeft = 236
-      ExplicitTop = 197
     end
     object cxLabel1: TcxLabel
       Left = 16

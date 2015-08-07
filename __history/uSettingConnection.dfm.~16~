@@ -1,0 +1,320 @@
+object SettingConnectionForm: TSettingConnectionForm
+  Left = 0
+  Top = 0
+  Caption = 'Form Setting Connection'
+  ClientHeight = 285
+  ClientWidth = 308
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object cxRadioGroup1: TcxRadioGroup
+    Left = 0
+    Top = 0
+    Align = alTop
+    Caption = 'Setting Server Aplikasi'
+    Properties.Columns = 2
+    Properties.ImmediatePost = True
+    Properties.Items = <
+      item
+        Caption = 'Embedded Server'
+      end
+      item
+        Caption = 'Client Server'
+      end>
+    Properties.OnChange = cxRadioGroup1PropertiesChange
+    Style.LookAndFeel.SkinName = 'Office2010Blue'
+    StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+    StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
+    StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
+    TabOrder = 0
+    Transparent = True
+    ExplicitWidth = 316
+    Height = 65
+    Width = 308
+  end
+  object cxGroupBox1: TcxGroupBox
+    Left = 0
+    Top = 65
+    Align = alClient
+    Caption = 'Configuration Server Aplikasi'
+    Style.LookAndFeel.SkinName = 'Office2010Blue'
+    StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+    StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
+    StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
+    TabOrder = 1
+    ExplicitWidth = 316
+    ExplicitHeight = 229
+    DesignSize = (
+      308
+      213)
+    Height = 220
+    Width = 308
+    object cxButton2: TcxButton
+      Left = 149
+      Top = 182
+      Width = 75
+      Height = 24
+      Anchors = [akRight, akBottom]
+      Caption = 'Save'
+      LookAndFeel.SkinName = ''
+      TabOrder = 0
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      ExplicitLeft = 157
+      ExplicitTop = 197
+    end
+    object cxButton1: TcxButton
+      Left = 228
+      Top = 182
+      Width = 75
+      Height = 24
+      Anchors = [akRight, akBottom]
+      Caption = 'Close'
+      LookAndFeel.SkinName = ''
+      TabOrder = 1
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      OnClick = cxButton1Click
+      ExplicitLeft = 236
+      ExplicitTop = 197
+    end
+    object cxLabel1: TcxLabel
+      Left = 16
+      Top = 26
+      Caption = 'Provider'
+      ParentFont = False
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = 'Office2010Blue'
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
+      Transparent = True
+    end
+    object cxLabel2: TcxLabel
+      Left = 16
+      Top = 53
+      Caption = 'Database'
+      ParentFont = False
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = 'Office2010Blue'
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
+      Transparent = True
+    end
+    object lblServer: TcxLabel
+      Left = 16
+      Top = 78
+      Caption = 'Server'
+      ParentFont = False
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = 'Office2010Blue'
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
+      Transparent = True
+    end
+    object lblUser: TcxLabel
+      Left = 16
+      Top = 103
+      Caption = 'User'
+      ParentFont = False
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = 'Office2010Blue'
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
+      Transparent = True
+    end
+    object lblPassword: TcxLabel
+      Left = 16
+      Top = 128
+      Caption = 'Password'
+      ParentFont = False
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = 'Office2010Blue'
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
+      Transparent = True
+    end
+    object lblPort: TcxLabel
+      Left = 16
+      Top = 153
+      Caption = 'Port'
+      ParentFont = False
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = 'Office2010Blue'
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleFocused.LookAndFeel.SkinName = 'Office2010Blue'
+      StyleHot.LookAndFeel.SkinName = 'Office2010Blue'
+      Transparent = True
+    end
+    object edPort: TcxTextEdit
+      Left = 88
+      Top = 152
+      ParentFont = False
+      Properties.MaxLength = 4
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = ''
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = ''
+      StyleFocused.LookAndFeel.SkinName = ''
+      StyleHot.LookAndFeel.SkinName = ''
+      TabOrder = 8
+      Text = '3306'
+      Width = 41
+    end
+    object edPassword: TcxTextEdit
+      Left = 88
+      Top = 127
+      ParentFont = False
+      Properties.MaxLength = 15
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = ''
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = ''
+      StyleFocused.LookAndFeel.SkinName = ''
+      StyleHot.LookAndFeel.SkinName = ''
+      TabOrder = 9
+      Text = 'cxTextEdit2'
+      Width = 113
+    end
+    object edUser: TcxTextEdit
+      Left = 88
+      Top = 102
+      ParentFont = False
+      Properties.MaxLength = 15
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = ''
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = ''
+      StyleFocused.LookAndFeel.SkinName = ''
+      StyleHot.LookAndFeel.SkinName = ''
+      TabOrder = 10
+      Text = 'cxTextEdit2'
+      Width = 113
+    end
+    object edServer: TcxTextEdit
+      Left = 88
+      Top = 77
+      ParentFont = False
+      Properties.MaxLength = 15
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = ''
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = ''
+      StyleFocused.LookAndFeel.SkinName = ''
+      StyleHot.LookAndFeel.SkinName = ''
+      TabOrder = 11
+      Text = '123456789012345'
+      Width = 113
+    end
+    object edDatabase: TcxTextEdit
+      Left = 88
+      Top = 52
+      ParentFont = False
+      Properties.MaxLength = 30
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = ''
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = ''
+      StyleFocused.LookAndFeel.SkinName = ''
+      StyleHot.LookAndFeel.SkinName = ''
+      TabOrder = 12
+      Text = '123456789012345678901234567890'
+      Width = 217
+    end
+    object edProvider: TcxTextEdit
+      Left = 88
+      Top = 25
+      Enabled = False
+      ParentFont = False
+      Style.Font.Charset = ANSI_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -13
+      Style.Font.Name = 'Arial'
+      Style.Font.Style = []
+      Style.LookAndFeel.SkinName = ''
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.SkinName = ''
+      StyleFocused.LookAndFeel.SkinName = ''
+      StyleHot.LookAndFeel.SkinName = ''
+      TabOrder = 13
+      Text = 'MySQL'
+      Width = 57
+    end
+  end
+  object dxSkinController1: TdxSkinController
+    SkinName = 'Office2010Blue'
+    Left = 184
+    Top = 80
+  end
+end

@@ -2,13 +2,13 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2015/08/03 18:41:11.000.867,=C:\Users\sanaya\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2015/08/03 18:41:40.000.125,C:\Users\sanaya\Documents\RAD Studio\Projects\Unit1.pas=D:\Delphi\ARKA\uMain.pas</Transaction>
-    <Transaction>2015/08/03 18:41:40.000.125,C:\Users\sanaya\Documents\RAD Studio\Projects\Unit1.dfm=D:\Delphi\ARKA\uMain.dfm</Transaction>
-    <Transaction>2015/08/03 18:41:45.000.016,C:\Users\sanaya\Documents\RAD Studio\Projects\Project1.dproj=D:\Delphi\ARKA\ARKA.dproj</Transaction>
+    <Transaction>2015/08/03 18:41:40.000.125,D:\Delphi\ARKA\uMain.pas=C:\Users\sanaya\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/08/03 18:41:40.000.125,D:\Delphi\ARKA\uMain.dfm=C:\Users\sanaya\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2015/08/03 18:41:45.000.016,D:\Delphi\ARKA\ARKA.dproj=C:\Users\sanaya\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2015/08/03 22:33:08.000.389,=D:\Delphi\ARKA\Unit1.pas</Transaction>
-    <Transaction>2015/08/03 22:33:24.000.211,D:\Delphi\ARKA\Unit1.pas=D:\Delphi\ARKA\uSetting.pas</Transaction>
-    <Transaction>2015/08/03 22:33:24.000.211,D:\Delphi\ARKA\Unit1.dfm=D:\Delphi\ARKA\uSetting.dfm</Transaction>
-    <Transaction>2015/08/03 22:33:44.000.649,D:\Delphi\ARKA\uSetting.pas=D:\Delphi\ARKA\uSettingConnection.pas</Transaction>
-    <Transaction>2015/08/03 22:33:44.000.649,D:\Delphi\ARKA\uSetting.dfm=D:\Delphi\ARKA\uSettingConnection.dfm</Transaction>
+    <Transaction>2015/08/03 22:33:24.000.211,D:\Delphi\ARKA\uSetting.pas=D:\Delphi\ARKA\Unit1.pas</Transaction>
+    <Transaction>2015/08/03 22:33:24.000.211,D:\Delphi\ARKA\uSetting.dfm=D:\Delphi\ARKA\Unit1.dfm</Transaction>
+    <Transaction>2015/08/03 22:33:44.000.649,D:\Delphi\ARKA\uSettingConnection.pas=D:\Delphi\ARKA\uSetting.pas</Transaction>
+    <Transaction>2015/08/03 22:33:44.000.649,D:\Delphi\ARKA\uSettingConnection.dfm=D:\Delphi\ARKA\uSetting.dfm</Transaction>
   </Transactions>
 </BorlandProject>

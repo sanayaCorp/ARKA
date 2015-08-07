@@ -8,7 +8,7 @@ uses
   cxContainer, cxEdit, dxSkinsCore, dxSkinOffice2010Blue, dxSkinSeven,
   dxSkinSharp, dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
   dxSkinValentine, dxSkinXmas2008Blue, Menus, StdCtrls, cxButtons, ExtCtrls,
-  cxGroupBox, cxRadioGroup, cxLabel, cxTextEdit, dxSkinsForm;
+  cxGroupBox, cxRadioGroup, cxLabel, cxTextEdit, dxSkinsForm, IniFiles;
 
 type
   TSettingConnectionForm = class(TForm)
@@ -33,6 +33,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure cxRadioGroup1PropertiesChange(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,12 +54,65 @@ implementation
 //    SpecificOptions.Values['EmbeddedParams'] := '--basedir=./embedded'#13#10'--datadir=/data';
 //    connect;
 //  end;
+
+procedure createSettingEmbedded(provider, database, server, user, password:String; port:integer);
+var
+myinifile : TIniFile;
+begin
+  myinifile := Tinifile.Create(ExtractFilePath(Application.exename)+'setting.ini');
+  myinifile.WriteString('Database','Hostname', server);
+  myinifile.WriteString('Database','User',user);
+  myinifile.WriteString('Database','Password',password);
+  myinifile.WriteString('Database','Database',database);
+  myinifile.WriteString('Database','Port',inttostr(port));
+  myinifile.WriteString('Database','Provider',provider);
+  myinifile.Free;
+end;
+
+procedure createSettingServer(provider, database, server, user, password:String; port:integer);
+var
+  sett : TIniFile;
+begin
+  sett := TIniFile.Create(ExtractFilePath(Application.ExeName)+'setting.ini');
+  sett.WriteString('Database','Hostname', server);
+  sett.WriteString('Database','User',user);
+  sett.WriteString('Database','Password',password);
+  sett.WriteString('Database','Database',database);
+  sett.WriteString('Database','Port',inttostr(port));
+  sett.WriteString('Database','Provider',provider);
+  sett.Free;
+end;
+
+procedure bacaSetting(provider, database, server, user, password:String; port, status:integer);
+var
+  file_:string;
+begin
+ file_:= ExtractFilePath(Application.ExeName)+'setting.ini';
+ if not FileExists(File_) then
+ begin
+   if status = 0 then
+   begin
+     createSettingEmbedded(provider,database, server, user, password, port);
+   end else
+   begin
+     createSettingServer(provider,database, server, user, password, port);
+   end;
+ end;
+end;
+
 procedure TSettingConnectionForm.cxButton1Click(Sender: TObject);
 begin
   if messagedlg('Apakah anda akan keluar dari aplikasi ?',(mtConfirmation),[mbYes, mbNo],0) = mrYes then
   begin
     Application.Terminate
   end;
+end;
+
+procedure TSettingConnectionForm.cxButton2Click(Sender: TObject);
+begin
+ bacaSetting(edProvider.Text, edDatabase.Text, edServer.Text, edUser.Text, edPassword.Text, strtoint(edPort.Text), cxRadioGroup1.ItemIndex);
+ ShowMessage('Setting koneksi success');
+ self.Close;
 end;
 
 procedure TSettingConnectionForm.cxRadioGroup1PropertiesChange(Sender: TObject);
@@ -103,7 +157,7 @@ begin
     edServer.Clear;
     edUser.Clear;
     edPassword.Clear;
-    edPort.Clear;
+    edPort.text := '0';
     edServer.Hide;
     edUser.Hide;
     edPassword.Hide;
